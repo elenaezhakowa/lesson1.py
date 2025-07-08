@@ -1,3 +1,4 @@
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
@@ -27,11 +28,12 @@ try:
 
     # Получаем текст уведомления (предположительно, оно появится после
     #  успешной авторизации)
-    success_message = driver.find_element(By.CLASS_NAME, "flash.success").text.strip()
+    success_message = (
+        driver.find_element(By.CLASS_NAME, "flash.success").text.strip())
 
     # Выводим текст уведомления в консоль
     print(f"Успешное уведомление: {success_message}")
-
+    sleep(10)
 finally:
     # Закрываем браузер
     driver.quit()

@@ -1,3 +1,4 @@
+from time import sleep
 from selenium import webdriver
 from selenium.webdriver.firefox.service import Service as FirefoxService
 from webdriver_manager.firefox import GeckoDriverManager
@@ -24,6 +25,7 @@ try:
 
     # Вводим новый текст "Pro"
     input_field.send_keys("Pro")
+    sleep(10)
 
 finally:
     # Закрываем браузер
