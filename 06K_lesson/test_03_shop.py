@@ -1,18 +1,23 @@
 import pytest
 from selenium import webdriver
-from selenium.webdriver.firefox.service import Service
+# from selenium.webdriver.firefox.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+# from webdriver_manager.firefox import GeckoDriverManager
 
 
 @pytest.fixture(scope="module")
 def firefox_driver():
-    gecko_service = Service('/path/to/geckodriver')
+    # gecko_service = Service('/path/to/geckodriver')
     # замените путь на геко-драйвер Firefox
-    driver = webdriver.Firefox(service=gecko_service)
+    driver = webdriver.Firefox()
+    # (service=gecko_service)
     yield driver
     driver.quit()
+
+# Установка и запуск GeckoDriver
+# driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
 
 
 def test_checkout_process(firefox_driver):
@@ -67,10 +72,6 @@ def test_checkout_process(firefox_driver):
     postal_code_field.send_keys('12345')
     continue_button.click()
 
-    # Завершить покупку и проверить сумму
-    finish_button = firefox_driver.find_element(By.ID, 'finish')
-    finish_button.click()
-
     total_amount_element = firefox_driver.find_element(
         By.CLASS_NAME, 'summary_total_label')
     total_amount = total_amount_element.text.split(':')[1].strip()
@@ -78,3 +79,7 @@ def test_checkout_process(firefox_driver):
     # Проверить итоговую сумму ($58.29)
     assert total_amount == '$58.29', f"""Итоговая сумма
     должна быть $58.29, но была '{total_amount}'"""
+
+# Завершить покупку и проверить сумму
+    finish_button = firefox_driver.find_element(By.ID, 'finish')
+    finish_button.click()

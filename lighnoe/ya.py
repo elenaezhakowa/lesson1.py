@@ -11,10 +11,9 @@ driver.maximize_window()
 # зайти на сайт лабиринт
 driver.get("https://www.labirint.ru/")
 
-
-
-search_locator='#search-field'
-search_imput = driver.find_element(By.CSS_SELECTOR,search_locator)
+# search_locator = '#search-field'
+search_imput = driver.find_element(By.CSS_SELECTOR, '#search-field')
 search_imput.send_keys("Python")
 
 sleep(10)
+driver.quit()

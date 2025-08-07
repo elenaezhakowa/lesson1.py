@@ -7,9 +7,9 @@ import requests
 @pytest.fixture(scope="module")
 def get_token():
     auth_data = {
-        "login": "",
-        "password": "",
-        "companyId": ""  # ID компании
+        "login": "zirnovaelena@yandex.ru",
+        "password": "19091947gG!",
+        "companyId": "24e608d9-f7cb-4c51-8fda-8ce8a75600d5"  # ID компании
     }
 
     headers = {'Content-Type': 'application/json'}  # Заголовки HTTP-запроса
@@ -121,4 +121,29 @@ def test_bind_by_id(get_token):
 
     # Утверждение успешного статуса ответа (ожидаем 201 Created)
 
+    assert response.status_code == 200
+
+
+def test_delete_project(get_token):
+    project_data = {
+        "title": "ГосУслуги",  # Название проекта
+        "users": {                       # Пользователь и роль
+            'ff02d87a-5e23-4082-971d-d1f2ae3edf86': "admin"
+        }
+    }
+
+# Заголовки с токеном авторизации
+    headers = {'Content-Type': 'application/json',
+               'Authorization': f'Bearer {get_token}'}
+
+# Отправляем POST-запрос для создания проекта
+    response = requests.post(
+        'https://ru.yougile.com/api-v2/auth/keys/{key}',
+        data=json.dumps(project_data),  # Данные проекта в виде JSON
+        headers=headers                 # Заголовки запроса
+    )
+    # Печать результата операции (для дебага)
+    print(response.json())
+
+    # Утверждение успешного статуса ответа (ожидаем 201 Created)
     assert response.status_code == 200

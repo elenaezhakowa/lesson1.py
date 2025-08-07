@@ -67,7 +67,7 @@ def test_fill_and_submit_form(browser):
                 EC.presence_of_element_located(
                     (By.XPATH, f"""//input[@id="{field_id}" and contains
                      (@class, "success")]""")
-                )
+                )З
             )
             successful_fields.append(field)
 

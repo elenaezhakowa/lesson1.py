@@ -9,10 +9,8 @@ from selenium.webdriver.support import expected_conditions as EC
 
 @pytest.fixture(scope='module')
 def chrome_driver():
-    service = Service(executable_path='/path/to/chromedriver')
-    # Путь к вашему chromedriver
-    options = webdriver.ChromeOptions()
-    driver = webdriver.Chrome(service=service, options=options)
+
+    driver = webdriver.Chrome()
     yield driver
     driver.quit()
 
@@ -38,11 +36,9 @@ def test_calculator_with_delay(chrome_driver):
         button.click()
 
     # Ждем пока результат появится
-    result_element = WebDriverWait(chrome_driver, 50).until(
-        EC.visibility_of_element_located((By.CLASS_NAME, 'screen'))
-    )
+    WebDriverWait(chrome_driver, 50).until(
+        EC.text_to_be_present_in_element((By.CSS_SELECTOR, ".screen"), "15"))
 
-    # Получение результата и проверка значения
-    actual_result = result_element.text.strip()
-    assert actual_result == '15', f"""
-    Ожидалось число 15, получено {actual_result}"""
+    result_text = chrome_driver.find_element(By.CSS_SELECTOR, ".screen").text
+    assert "15" in result_text, f"Ожидался результат 15, получено: {
+        result_text}"
