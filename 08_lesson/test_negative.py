@@ -29,7 +29,7 @@ def get_token():
 @pytest.fixture(scope="module")
 def get_user_list(get_token):
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'  # Заголовки с токеном
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'  # Заголовки с токеном
                }                                       # авторизации
 
 # Отправляем GET-запрос для получения списка пользователей
@@ -53,7 +53,7 @@ def test_create_project(get_token):
     }
 # Заголовки с токеном авторизации
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'}
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
 # Отправляем POST-запрос для создания проекта
     response = requests.post(
         'https://ru.yougile.com/api-v2/projects',
@@ -62,7 +62,7 @@ def test_create_project(get_token):
     )
     # Печать результата операции
     print(response.json())
-    assert response.status_code == 404
+    assert response.status_code == 400
 
 
 # Тест на обновление существующего проекта
@@ -76,11 +76,35 @@ def test_edit_project(get_token):
     }
     # Заголовки с токеном авторизации
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'}
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
 
     # Отправляем PUT-запрос для обновления проекта
     response = requests.put(
         'https://ru.yougile.com/api-v2/projects/'
+        '123456789',                         # не правильный id
+        data=json.dumps(edit_data),
+        headers=headers
+    )
+    # Печать результата операции
+    print(response.json())
+    assert response.status_code == 404
+
+
+def test_project_id(get_token):
+    edit_data = {
+        "deleted": False,
+        "title": "Госуслуги1",
+        "users": {
+            'ff02d87a-5e23-4082-971d-d1f2ae3edf86': "admin"
+        }
+    }
+    # Заголовки с токеном авторизации
+    headers = {'Content-Type': 'application/json',
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
+
+    # Отправляем PUT-запрос для обновления проекта
+    response = requests.get(
+        'https://ru.yougile.com/api-v2/projects//{id}'
         '123456789',                         # не правильный id
         data=json.dumps(edit_data),
         headers=headers

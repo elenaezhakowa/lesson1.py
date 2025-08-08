@@ -30,7 +30,7 @@ def get_token():
 @pytest.fixture(scope="module")
 def get_user_list(get_token):
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'  # Заголовки с токеном
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'  # Заголовки с токеном
                }                                       # авторизации
 
 # Отправляем GET-запрос для получения списка пользователей
@@ -55,7 +55,7 @@ def test_create_project(get_token):
 
 # Заголовки с токеном авторизации
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'}
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
 
 # Отправляем POST-запрос для создания проекта
     response = requests.post(
@@ -81,7 +81,7 @@ def test_edit_project(get_token):
     }
     # Заголовки с токеном авторизации
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'}
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
 
     # Отправляем PUT-запрос для обновления проекта
     response = requests.put(
@@ -107,7 +107,7 @@ def test_bind_by_id(get_token):
     }
     # Заголовки с токеном авторизации
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'}
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
     # Отправляем POST-запрос для связывания проекта с пользователями
     response = requests.get(
         'https://ru.yougile.com/api-v2/projects/'
@@ -134,7 +134,7 @@ def test_delete_project(get_token):
 
 # Заголовки с токеном авторизации
     headers = {'Content-Type': 'application/json',
-               'Authorization': f'Bearer {get_token}'}
+               'Authorization': f'Bearer wFzmL19-oVF3PbmZkvc24qkcZwJrgIXed1V2zIlZLL84TenO1710En9ZzUD4R0Mf'}
 
 # Отправляем POST-запрос для создания проекта
     response = requests.post(
