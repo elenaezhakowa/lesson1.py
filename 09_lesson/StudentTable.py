@@ -13,40 +13,33 @@ class StudentTable:
             result = conn.execute(text("SELECT * FROM student"))
             return result.fetchall()
 
-    def get_student_by_id(self, id):
-        """Возвращает запись о конкретном студенте по его ID"""
+    def get_student_by_user_id(self, user_id):
+        """Возвращает запись о конкретном студенте по его user_id"""
         with self.db.connect() as conn:
             result = conn.execute(
                 text(
-                    "SELECT * FROM student WHERE id = :select_id"
-                    ), {"select_id": id})
+                    "SELECT * FROM student WHERE user_id = :select_user_id"
+                    ), {"select_user_id": user_id})
             return result.fetchone()
 
-    # def get_active_students(self):
-    #     """Возвращает активных студентов"""
-    #     with self.db.connect() as conn:
-    #         result = conn.execute(
-    #             text('SELECT * FROM student WHERE \\"isActive\\" = TRUE'))
-    #         return result.fetchall()
-
-    def delete_student(self, id):
-        """Удаляет студента по заданному ID"""
+    def delete_student(self, user_id):
+        """Удаляет студента по заданному user_id"""
         with self.db.connect() as conn:
             conn.execute(text(
-                "DELETE FROM student WHERE id = :id_to_delete"
-            ), {"id_to_delete": id})
+                "DELETE FROM student WHERE user_id = :user_id_to_delete"
+            ), {"user_id_to_delete": user_id})
 
-    def create_student(self, name):
-        """Создает нового студента с указанным именем"""
+    def create_student(self, user_id):
+        """Создает нового студента"""
         with self.db.connect() as conn:
             conn.execute(text(
-                "INSERT INTO student(name) VALUES(:new_name)"
-            ), {"new_name": name})
+                "INSERT INTO student(user_id) VALUES(:new_user_id)"
+            ), {"new_user_id": user_id})
 
-    def get_max_id(self):
-        """Возвращает максимальный ID среди записей о студентах"""
+    def get_max_user_id(self):
+        """Возвращает максимальный user_id среди записей о студентах"""
         with self.db.connect() as conn:
-            result = conn.execute(text("SELECT MAX(id) FROM student"))
+            result = conn.execute(text("SELECT MAX(user_id) FROM student"))
             return result.scalar_one_or_none()
 
 # from sqlalchemy import create_engine
@@ -85,6 +78,13 @@ class StudentTable:
 #      return self.db.execute(self,  text("insert into student(\"name\")
 # values (:new_name)"), new_name = name)
 # # возвращает по MAX ID
-# def get_max_id(self):
+# def get_max_user_id(self):
 #     return self.db.execute(self, "select MAX(id) from student"
 # ).fetchall()[0][0]
+
+    # def get_active_students(self):
+    #     """Возвращает активных студентов"""
+    #     with self.db.connect() as conn:
+    #         result = conn.execute(
+    #             text('SELECT * FROM student WHERE \\"isActive\\" = TRUE'))
+    #         return result.fetchall()
