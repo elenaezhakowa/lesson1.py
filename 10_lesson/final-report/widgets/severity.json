@@ -1,0 +1,1 @@
+[{"uid":"35e535198d5ce16d","name":"Тестирование медленного калькулятора","time":{"start":1755196768097,"stop":1755196816303,"duration":48206},"status":"passed","severity":"normal"},{"uid":"b7ad77c78399ff01","name":"test_checkout_process","time":{"start":1755196826470,"stop":1755196830131,"duration":3661},"status":"passed","severity":"normal"}]
